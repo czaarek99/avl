@@ -3,4 +3,4 @@ project(avl C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(avl main.c)
+add_executable(avl src/main.c src/avl.h src/avl.c)
