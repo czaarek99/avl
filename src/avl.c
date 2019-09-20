@@ -25,29 +25,31 @@ void destroy(struct node* node) {
 }
 
 //https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm
-void left_rotate(struct node* node) {
+struct node* left_rotate(struct node* node) {
     struct node* top_node = node->right;
     struct node* left_node = node;
-    //struct node* right_node = node->right->right;
 
     top_node->parent = left_node->parent;
     top_node->left = left_node;
 
     left_node->parent = top_node;
     left_node->right = NULL;
+    
+    return top_node;
 }
 
 //https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm
-void right_rotate(struct node* node) {
+struct node* right_rotate(struct node* node) {
     struct node* top_node = node->left;
     struct node* right_node = node;
-    //struct node* left_node = node->left->left;
 
     top_node->parent = right_node->parent;
     top_node->right = right_node;
 
     right_node->parent = top_node;
     right_node->left = NULL;
+
+    return top_node;
 }
 
 void update_height(struct node* node) {
@@ -104,8 +106,37 @@ void add(struct node* node, int key) {
     }
 
     if(abs(leftHeight - rightHeight) > 1) {
-        printf("Should rotate!\n");
+
+        if(node->left == NULL &&
+            node->right != NULL &&
+            node->right->left == NULL &&
+            node->right->right != NULL) {
+
+            left_rotate(node);
+        } else if(node->right == NULL &&
+            node->left != NULL &&
+            node->left->right == NULL &&
+            node->left->left != NULL) {
+
+            right_rotate(node);
+        } else if(node->right == NULL &&
+            node->left != NULL &&
+            node->left->left == NULL &&
+            node->left->right != NULL) {
+
+            left_rotate(node->left);
+            right_rotate(node);
+        } else if(node->left == NULL &&
+            node->right != NULL &&
+            node->right->right == NULL &&
+            node->right->left != NULL) {
+
+            right_rotate(node->right);
+            left_rotate(node);
+        }
     }
+
+    printf("");
 }
 
 
