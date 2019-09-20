@@ -4,6 +4,7 @@
 struct node {
     int key;
     int height;
+    struct node* parent;
     struct node* left;
     struct node* right;
 };
