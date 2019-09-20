@@ -104,7 +104,7 @@ void add(struct node* node, int key) {
     }
 
     if(abs(leftHeight - rightHeight) > 1) {
-        printf("Should rotate!");
+        printf("Should rotate!\n");
     }
 }
 
