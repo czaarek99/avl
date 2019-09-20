@@ -3,12 +3,12 @@
 
 struct node {
     int key;
-    unsigned int height;
+    int height;
     struct node* left;
     struct node* right;
 };
 
-struct node* make(int key, unsigned int height);
+struct node* make(int key);
 void destroy(struct node* node);
 void add(struct node* node, int key);
 void print_tree(struct node* node);

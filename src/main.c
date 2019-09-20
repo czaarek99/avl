@@ -2,20 +2,14 @@
 #include "avl.h"
 
 int main() {
-    struct node* root = make(10, 0);
+    struct node* root = make(41);
 
-    add(root, 2);
-    add(root, 6);
-    add(root, 25);
-    add(root, 100);
-    add(root, 1);
-    add(root, 35);
-    add(root, 35);
-    add(root, 35);
-    add(root, 35);
-    add(root, 1000);
-    add(root, -5);
-    add(root, 500);
+    add(root, 20);
+    add(root, 29);
+    add(root, 26);
+    add(root, 11);
+    add(root, 65);
+    add(root, 50);
 
     print_tree(root);
 

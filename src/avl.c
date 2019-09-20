@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include "avl.h"
 
-struct node* make(int key, unsigned int height) {
+struct node* make(int key) {
     struct node* n = calloc(1, sizeof(struct node));
-    n->height = height;
+    n->height = 0;
     n->key = key;
     return n;
 }
@@ -27,22 +27,38 @@ void destroy(struct node* node) {
 void add(struct node* node, int key) {
     if(key <= node->key) {
         if (node->left == NULL) {
-            struct node* new_node = make(key, 0);
+            struct node* new_node = make(key);
             node->left = new_node;
         } else {
             add(node->left, key);
         }
     } else {
         if(node->right == NULL) {
-            struct node* new_node = make(key, 0);
+            struct node* new_node = make(key);
             node->right = new_node;
         } else {
             add(node->right, key);
         }
     }
 
-    node->height++;
+    int leftHeight = -1;
+    int rightHeight = -1;
+
+    if(node->left != NULL) {
+        leftHeight = node->left->height;
+    }
+
+    if(node->right != NULL) {
+        rightHeight = node->right->height;
+    }
+
+    if(leftHeight >= rightHeight) {
+        node->height = leftHeight + 1;
+    } else {
+        node->height = rightHeight + 1;
+    }
 }
+
 
 void print_tree(struct node* node) {
 
