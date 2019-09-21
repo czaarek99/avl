@@ -16,6 +16,7 @@ void destroy(struct node* node);
 int min_key(struct node* node);
 int max_key(struct node* node);
 struct node* add(struct node* node, int key);
+struct node* delete(struct node* node, int key);
 void print_tree(struct node* node);
 
 #endif

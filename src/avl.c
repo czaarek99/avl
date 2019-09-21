@@ -105,6 +105,89 @@ struct node* right_rotate(struct node* node) {
     return top_node;
 }
 
+struct node* rotate(struct node* node) {
+    update_height(node);
+
+    int leftHeight = -1;
+    int rightHeight = -1;
+
+    if(node->left != NULL) {
+        leftHeight = node->left->height;
+    }
+
+    if(node->right != NULL) {
+        rightHeight = node->right->height;
+    }
+
+    struct node* new_root = NULL;
+
+    if(abs(leftHeight - rightHeight) > 1) {
+
+        if(node->left == NULL &&
+           node->right != NULL &&
+           node->right->left == NULL &&
+           node->right->right != NULL) {
+
+            new_root = left_rotate(node);
+        } else if(node->right == NULL &&
+                  node->left != NULL &&
+                  node->left->right == NULL &&
+                  node->left->left != NULL) {
+
+            new_root = right_rotate(node);
+        } else if(node->right == NULL &&
+                  node->left != NULL &&
+                  node->left->left == NULL &&
+                  node->left->right != NULL) {
+
+            left_rotate(node->left);
+            new_root = right_rotate(node);
+        } else if(node->left == NULL &&
+                  node->right != NULL &&
+                  node->right->right == NULL &&
+                  node->right->left != NULL) {
+
+            right_rotate(node->right);
+            new_root = left_rotate(node);
+        }
+    }
+
+    if(new_root != NULL && new_root->parent == NULL) {
+        return new_root;
+    }
+
+    return node;
+}
+
+struct node* delete(struct node* node, int key) {
+
+    if(key < node->key) {
+        if(node->left == NULL) {
+            return node;
+        } else {
+            delete(node->left, key);
+        }
+    } else if(key > node->key) {
+        if(node->right == NULL) {
+            return node;
+        } else {
+            delete(node->right, key);
+        }
+    } else {
+        struct node* new_node;
+
+        if(node->parent != NULL) {
+            if(node->parent->left == node) {
+
+            } else {
+
+            }
+        }
+    }
+
+    return rotate(node);
+}
+
 struct node* add(struct node* node, int key) {
     if(key < node->key) {
         if (node->left == NULL) {
@@ -130,57 +213,7 @@ struct node* add(struct node* node, int key) {
         return node;
     }
 
-    update_height(node);
-
-    int leftHeight = -1;
-    int rightHeight = -1;
-
-    if(node->left != NULL) {
-        leftHeight = node->left->height;
-    }
-
-    if(node->right != NULL) {
-        rightHeight = node->right->height;
-    }
-
-    struct node* new_root = NULL;
-
-    if(abs(leftHeight - rightHeight) > 1) {
-
-        if(node->left == NULL &&
-            node->right != NULL &&
-            node->right->left == NULL &&
-            node->right->right != NULL) {
-
-            new_root = left_rotate(node);
-        } else if(node->right == NULL &&
-            node->left != NULL &&
-            node->left->right == NULL &&
-            node->left->left != NULL) {
-
-            new_root = right_rotate(node);
-        } else if(node->right == NULL &&
-            node->left != NULL &&
-            node->left->left == NULL &&
-            node->left->right != NULL) {
-
-            left_rotate(node->left);
-            new_root = right_rotate(node);
-        } else if(node->left == NULL &&
-            node->right != NULL &&
-            node->right->right == NULL &&
-            node->right->left != NULL) {
-
-            right_rotate(node->right);
-            new_root = left_rotate(node);
-        }
-    }
-
-    if(new_root != NULL && new_root->parent == NULL) {
-        return new_root;
-    }
-
-    return node;
+    return rotate(node);
 }
 
 void print_tree(struct node* node) {
