@@ -4,9 +4,8 @@
 
 struct node* make(int key) {
     struct node* n = calloc(1, sizeof(struct node));
-    n->height = 0;
+    n->count = 1;
     n->key = key;
-
     return n;
 }
 
@@ -107,7 +106,7 @@ struct node* right_rotate(struct node* node) {
 }
 
 struct node* add(struct node* node, int key) {
-    if(key <= node->key) {
+    if(key < node->key) {
         if (node->left == NULL) {
             struct node* new_node = make(key);
             new_node->parent = node;
@@ -116,7 +115,7 @@ struct node* add(struct node* node, int key) {
         } else {
             add(node->left, key);
         }
-    } else {
+    } else if(key > node->key) {
         if(node->right == NULL) {
             struct node* new_node = make(key);
             new_node->parent = node;
@@ -125,6 +124,10 @@ struct node* add(struct node* node, int key) {
         } else {
             add(node->right, key);
         }
+    } else {
+        node->count++;
+
+        return node;
     }
 
     update_height(node);
@@ -180,14 +183,17 @@ struct node* add(struct node* node, int key) {
     return node;
 }
 
-
 void print_tree(struct node* node) {
 
     if(node->left != NULL) {
         print_tree(node->left);
     }
 
-    printf("%d ", node->key);
+    if(node->count > 1) {
+        printf("%d(%lu) ", node->key, node->count);
+    } else {
+        printf("%d ", node->key);
+    }
 
     if(node->right != NULL) {
         print_tree(node->right);
