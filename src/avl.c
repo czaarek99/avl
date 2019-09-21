@@ -190,7 +190,7 @@ void print_tree(struct node* node) {
     }
 
     if(node->count > 1) {
-        printf("%d(%lu) ", node->key, node->count);
+        printf("%d(x%lu) ", node->key, node->count);
     } else {
         printf("%d ", node->key);
     }
@@ -198,4 +198,24 @@ void print_tree(struct node* node) {
     if(node->right != NULL) {
         print_tree(node->right);
     }
+}
+
+int min_key(struct node* node) {
+
+    if(node->left == NULL) {
+        return node->key;
+    } else {
+        return min_key(node->left);
+    }
+
+}
+
+int max_key(struct node* node) {
+
+    if(node->right == NULL) {
+        return node->key;
+    } else {
+        return max_key(node->right);
+    }
+
 }

@@ -18,5 +18,7 @@ int main() {
 
     print_tree(root);
 
+    printf("\nmax: %d min: %d", max_key(root), min_key(root));
+
     return 0;
 }
