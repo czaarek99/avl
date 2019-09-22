@@ -2,12 +2,12 @@
 #define AVL_H
 
 struct node {
-    int key;
-    int height;
-    unsigned long count;
-    struct node* parent;
-    struct node* left;
-    struct node* right;
+	int key;
+	int height;
+	unsigned long count;
+	struct node* parent;
+	struct node* left;
+	struct node* right;
 };
 
 
