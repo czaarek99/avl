@@ -3,7 +3,7 @@
 //#include <time.h>
 #include "avl.h"
 
-int random(int min, int max){
+int random(int min, int max) {
 	return min + rand() / (RAND_MAX / (max - min + 1) + 1);
 }
 
@@ -15,9 +15,9 @@ int main() {
 		root = add(root, random(-50, 200));
 	}*/
 
-    struct node* root = add(NULL, 60);
+	struct node *root = add(NULL, 60);
 	root = add(root, 30);
-    root = add(root, 30);
+	root = add(root, 30);
 	root = add(root, 70);
 	root = add(root, 29);
 	root = add(root, 32);
@@ -27,13 +27,13 @@ int main() {
 	print_tree(root);
 
 	root = delete(root, 29);
-    root = delete(root, 30);
-    root = delete(root, 30);
-    root = delete(root, 32);
+	root = delete(root, 30);
+	root = delete(root, 30);
+	root = delete(root, 32);
 
 	printf("\n");
 
-    print_tree(root);
+	print_tree(root);
 
 	return 0;
 }
