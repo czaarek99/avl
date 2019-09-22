@@ -253,33 +253,22 @@ struct node* max_node(struct node* node) {
 
 }
 
-struct node* successor(struct node* node, int key) {
+struct node* node_successor(struct node* node) {
 
-    return NULL;
+	if(node->right != NULL) {
+		return min_node(node->right);
+	}
 
-    /*if(key > node->key) {
-        if(node->right == NULL) {
-            return NULL;
-        }
+	struct node* parent = node->parent;
 
-        return successor(node->right, key);
-    } else if(key < node->key) {
-        if(node->left == NULL) {
+	while(parent != NULL && node == parent->right) {
+		node = parent;
+		parent = parent->parent;
+	}
 
-            if(node->parent->right != NULL) {
-                return node->parent->right;
-            } else {
-                return node->parent;
-            }
-
-        }
-
-        return successor(node->left, key);
-    } else {
-        return node->right;
-    }*/
+	return parent;
 }
 
-struct node* predecessor(struct node* node, int key) {
-    return NULL;
+struct node* node_predecessor(struct node* node) {
+
 }

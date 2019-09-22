@@ -17,8 +17,8 @@ struct node* min_node(struct node* node);
 struct node* max_node(struct node* node);
 struct node* add(struct node* node, int key);
 struct node* delete(struct node* node, int key);
-struct node* successor(struct node* node, int key);
-struct node* predecessor(struct node* node, int key);
+//struct node* successor(struct node* node, int key);
+//struct node* predecessor(struct node* node, int key);
 void print_tree(struct node* node);
 
 #endif
