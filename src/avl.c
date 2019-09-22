@@ -153,6 +153,7 @@ struct node* rotate(struct node* node) {
 	}
 
 	if(new_root != NULL && new_root->parent == NULL) {
+		//TODO: Make this work even if ->parent != NULL (currently only works for root)
 		return new_root;
 	}
 
@@ -174,21 +175,70 @@ struct node* delete(struct node* node, int key) {
 			delete(node->right, key);
 		}
 	} else {
-		struct node* replacement_node = NULL;
-
-		if(node->right == NULL && node->left != NULL) {
-			replacement_node = node->left;
-		} else if(node->right != NULL && node->left == NULL) {
-			replacement_node = node->right;
-		} else {
-			//successor here
+		if(node->count > 1) {
+			node->count--;
+			return node;
 		}
+
+		//Leaf node
+		if(node->right == NULL && node->left == NULL) {
+			//Special case if we only have one node and it's the root
+			if(node->parent == NULL) {
+				return NULL;
+			}
+
+			struct node* parent = node->parent;
+			if(parent->left == node) {
+				parent->left = NULL;
+			} else {
+				parent->right = NULL;
+			}
+
+		} else if(node->right == NULL && node->left != NULL) {
+
+			struct node* parent = node->parent;
+			if(parent != NULL) {
+				if(parent->left == node) {
+					parent->left = node->left;
+				} else {
+					parent->right = node->left;
+				}
+			}
+
+			node->left->parent = parent;
+		} else if(node->right != NULL && node->left == NULL) {
+
+			struct node* parent = node->parent;
+
+			if(parent != NULL) {
+				if(parent->left == node) {
+					parent->left = node->right;
+				} else {
+					parent->right = node->right;
+				}
+			}
+
+			node->right->parent = parent;
+		} else {
+			struct node* right_min = min_node(node->right);
+
+			right_min->left = node->left;
+			right_min->right = node->right;
+			right_min->parent = node->parent;
+		}
+
+		free(node);
 	}
 
+	//TODO: Fix rotations not working properly on delete
 	return rotate(node);
 }
 
 struct node* add(struct node* node, int key) {
+	if(node == NULL) {
+		return make(key);
+	}
+
 	if(key < node->key) {
 		if (node->left == NULL) {
 			struct node* new_node = make(key);

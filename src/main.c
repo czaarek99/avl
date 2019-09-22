@@ -8,7 +8,6 @@ int random(int min, int max){
 }
 
 int main() {
-	struct node* root = make(41);
 
 	/*srand(time(NULL));
 
@@ -16,26 +15,25 @@ int main() {
 		root = add(root, random(-50, 200));
 	}*/
 
-	root = add(root, 50);
-	root = add(root, 50);
-	root = add(root, 50);
-	root = add(root, 50);
-	root = add(root, 50);
-	root = add(root, 50);
-	root = add(root, 60);
-	root = add(root, -5);
+    struct node* root = add(NULL, 60);
+	root = add(root, 30);
+    root = add(root, 30);
 	root = add(root, 70);
+	root = add(root, 29);
+	root = add(root, 32);
+	root = add(root, 71);
+	root = add(root, 69);
 
 	print_tree(root);
 
-	struct node* s = successor(root, 30);
+	root = delete(root, 29);
+    root = delete(root, 30);
+    root = delete(root, 30);
+    root = delete(root, 32);
 
-	if(s != NULL) {
-		printf("\n successor: %d\n", s->key);
-	} else {
-		printf("\n no successor");
-	}
+	printf("\n");
 
+    print_tree(root);
 
 	return 0;
 }
