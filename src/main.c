@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+//#include <time.h>
 #include "avl.h"
 
 int random(int min, int max){
@@ -33,7 +33,7 @@ int main() {
 
 	printf("\n");*/
 
-    print_tree(root);
+    //print_tree(root);
 
 	return 0;
 }

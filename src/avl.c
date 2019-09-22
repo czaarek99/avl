@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
 #include "avl.h"
 
 struct node* make(int key) {
@@ -160,6 +159,7 @@ struct node* rotate(struct node* node) {
 	return node;
 }
 
+//TODO: Balance the tree on delete
 struct node* delete(struct node* node, int key) {
 
 	if(key < node->key) {
@@ -315,6 +315,7 @@ struct node* node_successor(struct node* node) {
 	return parent;
 }
 
+//TODO: Implement
 struct node* node_predecessor(struct node* node) {
     return NULL;
 }
