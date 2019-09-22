@@ -316,5 +316,5 @@ struct node* node_successor(struct node* node) {
 }
 
 struct node* node_predecessor(struct node* node) {
-
+    return NULL;
 }

@@ -26,12 +26,12 @@ int main() {
 
 	print_tree(root);
 
-	root = delete(root, 29);
+	/*root = delete(root, 29);
     root = delete(root, 30);
     root = delete(root, 30);
     root = delete(root, 32);
 
-	printf("\n");
+	printf("\n");*/
 
     print_tree(root);
 
