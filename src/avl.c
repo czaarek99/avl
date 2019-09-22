@@ -105,51 +105,47 @@ struct node* right_rotate(struct node* node) {
 	return top_node;
 }
 
+int height(struct node* node) {
+    if(node == NULL) {
+        return -1;
+    }
+
+    return node->height;
+}
+
 struct node* rotate(struct node* node) {
 	update_height(node);
 
-	int leftHeight = -1;
-	int rightHeight = -1;
-
-	if(node->left != NULL) {
-		leftHeight = node->left->height;
-	}
-
-	if(node->right != NULL) {
-		rightHeight = node->right->height;
-	}
+	int leftHeight = height(node->left);
+	int rightHeight = height(node->right);
 
 	struct node* new_root = NULL;
 
 	if(abs(leftHeight - rightHeight) > 1) {
 
-		if(node->left == NULL &&
-		   node->right != NULL &&
-		   node->right->left == NULL &&
-		   node->right->right != NULL) {
+	    if(node->right != NULL &&
+            node->height - height(node->right) == 1 &&
+            node->height - height(node->right->left) == 2) {
 
-			new_root = left_rotate(node);
-		} else if(node->right == NULL &&
-				  node->left != NULL &&
-				  node->left->right == NULL &&
-				  node->left->left != NULL) {
+            right_rotate(node->right);
+            new_root = left_rotate(node);
+	    } else if(node->left != NULL &&
+            node->height - height(node->left) == 1 &&
+            node->height - height(node->left->right) == 2) {
 
-			new_root = right_rotate(node);
-		} else if(node->right == NULL &&
-				  node->left != NULL &&
-				  node->left->left == NULL &&
-				  node->left->right != NULL) {
+            left_rotate(node->left);
+            new_root = right_rotate(node);
+	    } else if(node->left != NULL &&
+            node->height - height(node->left) == 1 &&
+            node->height - height(node->left->left) == 2) {
 
-			left_rotate(node->left);
-			new_root = right_rotate(node);
-		} else if(node->left == NULL &&
-				  node->right != NULL &&
-				  node->right->right == NULL &&
-				  node->right->left != NULL) {
+	    	new_root = right_rotate(node);
+	    } else if(node->right != NULL &&
+			node->height - height(node->right) == 1 &&
+			node->height - height(node->right->right) == 2) {
 
-			right_rotate(node->right);
-			new_root = left_rotate(node);
-		}
+	    	new_root = left_rotate(node);
+	    }
 	}
 
 	if(new_root != NULL) {
@@ -159,7 +155,6 @@ struct node* rotate(struct node* node) {
 	return node;
 }
 
-//TODO: Balance the tree on delete
 struct node* delete(struct node* node, int key) {
 
 	if(key < node->key) {
