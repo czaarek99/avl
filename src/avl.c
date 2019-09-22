@@ -174,14 +174,14 @@ struct node* delete(struct node* node, int key) {
             delete(node->right, key);
         }
     } else {
-        struct node* new_node;
+        struct node* replacement_node = NULL;
 
-        if(node->parent != NULL) {
-            if(node->parent->left == node) {
-
-            } else {
-
-            }
+        if(node->right == NULL && node->left != NULL) {
+            replacement_node = node->left;
+        } else if(node->right != NULL && node->left == NULL) {
+            replacement_node = node->right;
+        } else {
+            //successor here
         }
     }
 
@@ -233,22 +233,53 @@ void print_tree(struct node* node) {
     }
 }
 
-int min_key(struct node* node) {
+struct node* min_node(struct node* node) {
 
     if(node->left == NULL) {
-        return node->key;
+        return node;
     } else {
-        return min_key(node->left);
+        return min_node(node->left);
     }
 
 }
 
-int max_key(struct node* node) {
+struct node* max_node(struct node* node) {
 
     if(node->right == NULL) {
-        return node->key;
+        return node;
     } else {
-        return max_key(node->right);
+        return max_node(node->right);
     }
 
+}
+
+struct node* successor(struct node* node, int key) {
+
+    return NULL;
+
+    /*if(key > node->key) {
+        if(node->right == NULL) {
+            return NULL;
+        }
+
+        return successor(node->right, key);
+    } else if(key < node->key) {
+        if(node->left == NULL) {
+
+            if(node->parent->right != NULL) {
+                return node->parent->right;
+            } else {
+                return node->parent;
+            }
+
+        }
+
+        return successor(node->left, key);
+    } else {
+        return node->right;
+    }*/
+}
+
+struct node* predecessor(struct node* node, int key) {
+    return NULL;
 }
