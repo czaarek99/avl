@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "avl.h"
 
 struct node* make(int key) {
@@ -152,8 +153,7 @@ struct node* rotate(struct node* node) {
 		}
 	}
 
-	if(new_root != NULL && new_root->parent == NULL) {
-		//TODO: Make this work even if ->parent != NULL (currently only works for root)
+	if(new_root != NULL) {
 		return new_root;
 	}
 
@@ -182,18 +182,14 @@ struct node* delete(struct node* node, int key) {
 
 		//Leaf node
 		if(node->right == NULL && node->left == NULL) {
-			//Special case if we only have one node and it's the root
-			if(node->parent == NULL) {
-				return NULL;
-			}
-
 			struct node* parent = node->parent;
-			if(parent->left == node) {
-				parent->left = NULL;
-			} else {
-				parent->right = NULL;
+			if(parent != NULL) {
+                if(parent->left == node) {
+                    parent->left = NULL;
+                } else {
+                    parent->right = NULL;
+                }
 			}
-
 		} else if(node->right == NULL && node->left != NULL) {
 
 			struct node* parent = node->parent;
@@ -228,9 +224,9 @@ struct node* delete(struct node* node, int key) {
 		}
 
 		free(node);
+		return NULL;
 	}
 
-	//TODO: Fix rotations not working properly on delete
 	return rotate(node);
 }
 
