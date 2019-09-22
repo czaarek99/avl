@@ -294,23 +294,13 @@ struct node *max_node(struct node *node) {
 
 }
 
-struct node *node_successor(struct node *node) {
-
-	if (node->right != NULL) {
-		return min_node(node->right);
-	}
-
-	struct node *parent = node->parent;
-
-	while (parent != NULL && node == parent->right) {
-		node = parent;
-		parent = parent->parent;
-	}
-
-	return parent;
+//TODO: Implement
+int successor(struct node *node, int key) {
+	return 0;
 }
 
 //TODO: Implement
-struct node *node_predecessor(struct node *node) {
-	return NULL;
+int predecessor(struct node *node, int key) {
+	return 0;
 }
+

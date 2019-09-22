@@ -22,6 +22,10 @@ struct node *add(struct node *node, int key);
 
 struct node *delete(struct node *node, int key);
 
+int successor(struct node *node, int key);
+
+int predecessor(struct node *node, int key);
+
 void print_tree(struct node *node);
 
 #endif
